@@ -18,14 +18,15 @@ export class Todo {
 export class ListToDosComponent implements OnInit {
 
   todos: Todo[];
-   //= [
+  message: string;
+  //= [
   //   new Todo(1, 'Find a Job', false, new Date()),
   //   new Todo(2, 'Buy a House', false, new Date()),
   //   new Todo(3, 'Learn ALL the Code!', false, new Date())
-    // { id: 1, description: 'Learn to Dance' },
-    // { id: 2, description: 'Learn to Cook' },
-    // { id: 3, description: 'Learn to Clean' }
- // ]
+  // { id: 1, description: 'Learn to Dance' },
+  // { id: 2, description: 'Learn to Cook' },
+  // { id: 3, description: 'Learn to Clean' }
+  // ]
 
   // todo = {
   //   id: 1,
@@ -37,6 +38,11 @@ export class ListToDosComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.refreshTodos();
+  }
+
+
+  refreshTodos() {
     this.todoService.retrieveAllTodos('amandaw').subscribe(
       response => {
         this.todos = response;
@@ -44,4 +50,14 @@ export class ListToDosComponent implements OnInit {
     )
   }
 
+  deleteTodo(id) {
+    console.log(`delete todo ${id}`);
+    this.todoService.deleteTodo('amandaw', id).subscribe(
+      response => {
+        console.log(response);
+        this.message = `Delete of ToDo ${id} Successful`;
+        this.refreshTodos();
+      }
+    )
+  }
 }
