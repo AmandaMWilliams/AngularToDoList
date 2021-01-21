@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,14 @@ export class BasicAuthenticationService {
 
     return this.http.get<AuthenticationBean>
       (`http://localhost:8080/basicauth`,
-        { headers });
+        { headers }).pipe(
+          map(
+            data => {
+              sessionStorage.setItem('authenticatedUser', username)
+              return data;
+            }
+          )
+        );
 
     //console.log("Execute Hello World Bean Service")
   }
