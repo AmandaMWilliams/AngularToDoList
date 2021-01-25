@@ -40,8 +40,6 @@ export class LoginComponent implements OnInit {
   }
 
   handleBasicAuthLogin() {
-    //console.log(this.username);
-    // if (this.username === "amandaw" && this.password === 'noodles') {
     this.basicAuthenticationService.executeAuthenticationService(this.username, this.password)
       .subscribe(
         data => {
